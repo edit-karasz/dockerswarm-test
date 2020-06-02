@@ -8,13 +8,20 @@ We will run it on a Docker swarm running on the localhost.
 
 Docker swarm is a part of the docker-ce package. The easiest way to install it is to run a script stored on: 
 
-``` $ docker-machine ip <IP> ```
+``` $ docker swarm init --advertise-addr <IP> ```
 
 This will create a master. You can run services on it as well so it is enough.
 
+Check it:
+
+``` $ docker node ls ```
+
 Creating a registry on the localhost docker swarm:
 
-``` $ docker service create --name registry --publish published=5000,target=5000 registry:2 ``
+``` $ docker service create --name registry --publish published=5000,target=5000 registry:2 ```
+
+Check:
+``` $ docker ps ```
 
 ### Building and installing the web service from a Dockerfile
 
@@ -36,6 +43,10 @@ This will store the images on the local registry.
 To deploy the service run:
 
 ``` $ docker stack deploy --compose-file docker-compose.yaml app ```
+
+Remove it:
+
+``` $ docker stack rm app ```
 
 ### Building and installing the web service from Packer
 

@@ -5,7 +5,7 @@
     "image": "python:3",
     "commit": true,
     "volumes": {
-      "/home/karasze/projects/dockerswarm" : "/usr/src/app"
+      "/Users/editkarasz/github/dockerswarm-test" : "/usr/src/app"
     },
     "changes": [
        "WORKDIR /usr/src/app",    
