@@ -1,0 +1,8 @@
+version: '3'
+
+services:
+  web:
+    image: gcr.io/support-181717/app:0.1
+    build: .
+    ports:
+      - "8080:5000"

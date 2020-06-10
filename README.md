@@ -38,6 +38,15 @@ Creating the images to push:
 
 This will store the images on the local registry.
 
+If you want to push it to a gcp container registry than you have to:
+* get your gcloud sdk installed and set with the target project
+* initalise the connection with docker:
+
+```gcloud auth configure-docker```
+* Build the image whith the name / tag: gcr.io/support-181717/app:0.1 . You can do this by replacing the docker-compose.yaml file with the docker-compose-gcpsupport.yaml
+* Push it to the container registry from the command line:
+```docker push gcr.io/support-181717/app:0.1``` 
+
 #### Deploy the service to the Docker Swarm
 
 To deploy the service run:
@@ -55,7 +64,17 @@ You have to install Packer.
 You can put every listed step into 1 json file and build the Docker image from there.
 
 
+If you want to build modify and push the image into the Support docker registry you have to run:
+
+```
+gcloud auth configure-docker
+
+packer build webservice_gcpsupport_packer.json
+```
+
+This one is already up on the Support project's container registry. (app2)
 
 ### Pros and contras
 
-
+* Docker cannot manage a service lifecycle from a Dockerfile. You have to use a combination of docker-compose and docker command lines to do that. Docker will always work because they are the providers.
+* Packer is an extra component and it is not the native service provider. However it is able to manage a service's full configuration and lifecycle from a single file. Multiple services (like Ansible) can be added to that 1 file as an execution step. Unfortunately it is not well documented. It does not sequentially executes the steps added to the file: it has precedences like Cloudformation.
